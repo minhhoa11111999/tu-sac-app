@@ -356,7 +356,11 @@
   let isHistoryOpen = false;
 
   async function loadDataFromSupabase() {
-    const { data, error } = await _supabase.from('games').select('*').order('id', { ascending: true });
+    const { data, error } = await _supabase
+  .from('games')
+  .select('*')
+  .eq('is_deleted', false)
+  .order('id', { ascending: true });
     if (!error && data) {
       historyData = data;
       renderScores();
@@ -412,17 +416,23 @@
     }
   }
 
-  async function deleteGame(id) {
-    const { error } = await _supabase.from('games').delete().eq('id', id);
+async function deleteGame(id) {
+  const { error } = await _supabase
+    .from('games')
+    .update({ is_deleted: true })
+    .eq('id', id);
+  if (!error) await loadDataFromSupabase();
+}
+
+async function resetAll() {
+  if (confirm("Reset lại từ đầu cho cả 4 anh em?")) {
+    const { error } = await _supabase
+      .from('games')
+      .update({ is_deleted: true })
+      .eq('is_deleted', false);
     if (!error) await loadDataFromSupabase();
   }
-
-  async function resetAll() {
-    if (confirm("Reset lại từ đầu cho cả 4 anh em?")) {
-      const { error } = await _supabase.from('games').delete().gt('id', 0);
-      if (!error) await loadDataFromSupabase();
-    }
-  }
+}
 
   function renderScores() {
     let scores = [0, 0, 0, 0];
