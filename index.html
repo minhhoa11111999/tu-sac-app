@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
   <script src="./index_files/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -15,36 +16,41 @@
     body { background: linear-gradient(135deg, #e0f7fa 0%, #fff9c4 100%); color: #2c3e50; padding: 16px; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; }
     .app-card { width: 100%; max-width: 480px; background: #ffffff; border-radius: 24px; padding: 20px; box-shadow: 0 12px 30px rgba(0, 150, 136, 0.18); border: 3px solid #4db6ac; }
     
-    /* Header & Logo */
     .header { text-align: center; margin-bottom: 16px; }
     .logo-badge { width: 80px; height: 80px; margin: 0 auto 8px; background: linear-gradient(145deg, #ffe082, #ffb300); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 3px solid #fff; box-shadow: 0 6px 12px rgba(255, 160, 0, 0.3); }
     .fan-cards { display: flex; justify-content: center; align-items: flex-end; height: 35px; }
     .mini-card { width: 13px; height: 32px; border-radius: 3px; border: 1px solid #fff; font-size: 7px; font-weight: 900; color: #fff; display: flex; align-items: center; justify-content: center; writing-mode: vertical-rl; margin: 0 -2px; }
-    .c-red { background: #e53935; transform: rotate(-12deg); } .c-green { background: #43a047; transform: rotate(-4deg); } .c-yellow { background: #fbc02d; color: #333; transform: rotate(4deg); } .c-white { background: #fff; color: #212121; border: 1px solid #b0bec5; transform: rotate(12deg); }
+    .c-red { background: #e53935; } .c-green { background: #43a047; } .c-yellow { background: #fbc02d; color: #333; } .c-white { background: #fff; color: #212121; border: 1px solid #b0bec5; }
     .app-title { font-size: 20px; font-weight: 900; color: #00695c; }
     .app-subtitle { font-size: 12px; color: #d32f2f; font-weight: 800; font-style: italic; }
 
     .screen { display: none; }
     .screen.active { display: block; }
 
-    /* Form Config */
     .box { background: #f1f8e9; border-radius: 16px; padding: 14px; margin-bottom: 16px; border: 1.5px solid #c5e1a5; }
     .section-title { font-size: 14px; font-weight: 800; color: #004d40; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-    .form-group { margin-bottom: 10px; }
+    .form-group { margin-bottom: 12px; }
     .form-group label { display: block; font-size: 12px; font-weight: 800; color: #004d40; margin-bottom: 4px; }
-    .form-control { width: 100%; padding: 10px; border: 2px solid #a5d6a7; border-radius: 10px; font-weight: 700; font-size: 14px; outline: none; }
-    .form-control:focus { border-color: #26a69a; }
+    .form-control { width: 100%; padding: 10px; border: 2px solid #a5d6a7; border-radius: 10px; font-weight: 700; font-size: 14px; outline: none; background: #fff; }
     .inputs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 
-    /* Game Screen */
+    .btn-main { width: 100%; padding: 14px; margin-top: 10px; background: linear-gradient(135deg, #ff9800, #f57c00); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3); }
+    .btn-secondary { width: 100%; padding: 10px; background: #78909c; color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; margin-top: 10px; }
+    .btn-logout { background: #e53935; color: #fff; border: none; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 800; cursor: pointer; }
+
+    .user-tag { background: #e0f2f1; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; color: #004d40; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .players-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; }
     .player-btn { background: #fff; border: 2px solid #a5d6a7; border-radius: 12px; padding: 10px 4px; text-align: center; cursor: pointer; transition: all 0.2s; }
     .player-btn.selected { background: #ffe082; border-color: #ff8f00; transform: scale(1.05); box-shadow: 0 4px 10px rgba(255, 143, 0, 0.3); }
+    
     .win-types { display: flex; gap: 10px; margin-top: 12px; }
     .type-btn { flex: 1; padding: 10px; border: 2px solid #26a69a; background: #fff; color: #00695c; font-weight: 800; font-size: 13px; border-radius: 10px; cursor: pointer; text-align: center; }
     .type-btn.selected { background: #26a69a; color: #fff; }
-    .btn-main { width: 100%; padding: 14px; margin-top: 10px; background: linear-gradient(135deg, #ff9800, #f57c00); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 900; cursor: pointer; }
-    .btn-secondary { width: 100%; padding: 10px; background: #78909c; color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; margin-top: 10px; }
+
+    /* Cá Tướng Vàng UI */
+    .tuong-vang-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 6px; }
+    .tuong-item { background: #fff; padding: 6px 10px; border-radius: 8px; border: 1px solid #c5e1a5; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 800; }
+    .tuong-item select { padding: 4px; border-radius: 6px; border: 1px solid #26a69a; font-weight: 800; }
 
     .score-board { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
     .score-card { background: #fff; border-radius: 10px; padding: 10px; text-align: center; border: 1px solid #b2dfdb; }
@@ -63,6 +69,7 @@
 <body>
 
 <div class="app-card">
+  <!-- Header Logo -->
   <div class="header">
     <div class="logo-badge">
       <div class="fan-cards">
@@ -76,9 +83,31 @@
     <div class="app-subtitle">"CHƠI LÀ MẤT"</div>
   </div>
 
-  <div id="configScreen" class="screen active">
+  <!-- 1. MAN HINH DANG NHAP -->
+  <div id="loginScreen" class="screen active">
     <div class="box">
-      <div class="section-title">⚙️ Cấu Hình Game</div>
+      <div class="section-title">🔐 Đăng Nhập Hệ Thống</div>
+      <div class="form-group">
+        <label>Tên đăng nhập (Chọn người chơi):</label>
+        <select id="loginUserSelect" class="form-control">
+          <option value="Hải">👨‍💼 Hải</option>
+          <option value="Hòa">🧑‍💻 Hòa</option>
+          <option value="Công">👨‍🎨 Công</option>
+          <option value="Tín">🤵 Tín</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu:</label>
+        <input type="password" id="loginPasswordInput" class="form-control" placeholder="Mặc định: 123456">
+      </div>
+      <button class="btn-main" onclick="handleLogin()">ĐĂNG NHẬP VÀO APP</button>
+    </div>
+  </div>
+
+  <!-- 2. MAN HINH CONFIG -->
+  <div id="configScreen" class="screen">
+    <div class="box">
+      <div class="section-title">⚙️ Cấu Hình Bàn Chơi</div>
       
       <div class="form-group">
         <label>Số lượng người chơi:</label>
@@ -96,36 +125,51 @@
       </div>
 
       <div class="form-group" style="margin-top: 12px;">
-        <label>Mức xu mỗi ván (Trơn / Hoang):</label>
+        <label>Mức xu mỗi ván (Trơn / Quan):</label>
         <div style="display: flex; gap: 8px;">
           <input type="number" id="coinTronInput" class="form-control" value="5" placeholder="Thắng trơn">
-          <input type="number" id="coinHoangInput" class="form-control" value="10" placeholder="Thắng hoang">
+          <input type="number" id="coinQuanInput" class="form-control" value="10" placeholder="Thắng quan">
         </div>
       </div>
 
-      <button class="btn-main" onclick="startGame()">VÀO GAME BẮT ĐẦU</button>
+      <div class="form-group">
+        <label>👑 Giá cá Tướng Vàng (k / 1 con):</label>
+        <input type="number" id="coinTuongVangInput" class="form-control" value="5" placeholder="Giá 1 con tướng vàng (ví dụ 5 = 5k)">
+      </div>
+
+      <button class="btn-main" onclick="startGame()">BẮT ĐẦU VÀO GAME</button>
     </div>
   </div>
 
+  <!-- 3. MAN HINH TINH TIEN -->
   <div id="gameScreen" class="screen">
-    <div class="box">
-      <div class="section-title">
-        <span>👑 Ai Thắng Ván Này?</span>
-        <button class="history-toggle-btn" onclick="showConfig()">⚙️ Sửa Config</button>
+    <div class="user-tag">
+      <span>👋 Chào, <b id="currentUserLabel">Hải</b></span>
+      <div>
+        <button class="history-toggle-btn" onclick="showConfig()" style="margin-right: 4px;">⚙️ Config</button>
+        <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
       </div>
+    </div>
+
+    <div class="box">
+      <div class="section-title"><span>👑 Ai Thắng Ván Này?</span></div>
       <div class="players-grid" id="playersGrid"></div>
 
       <div class="section-title" style="margin-top: 12px;"><span>🎴 Loại Chiến Thắng</span></div>
       <div class="win-types">
         <button class="type-btn selected" id="btnTron" onclick="selectType('tron')">Thắng Trơn</button>
-        <button class="type-btn" id="btnHoang" onclick="selectType('hoang')">Thắng Hoang</button>
+        <button class="type-btn" id="btnQuan" onclick="selectType('quan')">Thắng Quan</button>
       </div>
+
+      <!-- Phần nhập Tướng Vàng vô được -->
+      <div class="section-title" style="margin-top: 12px;"><span>🌟 Số Tướng Vàng Vô Được:</span></div>
+      <div class="tuong-vang-grid" id="tuongVangGrid"></div>
 
       <button class="btn-main" onclick="addGame()">GHI NHẬN KẾT QUẢ</button>
     </div>
 
     <div class="box" style="background: #e0f2f1; border-color: #80cbc4;">
-      <div class="section-title"><span>📊 Tổng Kết Xu Hiện Tại</span></div>
+      <div class="section-title"><span>📊 Tổng Kết Xu / Tiền Hiện Tại</span></div>
       <div class="score-board" id="scoreBoard"></div>
     </div>
 
@@ -156,22 +200,42 @@
   const avatars = ["👨‍💼", "🧑‍💻", "👨‍🎨", "🤵", "👸", "🦸", "🧙", "🥷"];
 
   let coinTron = 5;
-  let coinHoang = 10;
+  let coinQuan = 10;
+  let priceTuongVang = 5; // Giá 1 con tướng vàng
   let selectedWinner = null;
   let winType = 'tron';
   let historyData = [];
   let isHistoryOpen = false;
 
+  function handleLogin() {
+    const user = document.getElementById('loginUserSelect').value;
+    const pass = document.getElementById('loginPasswordInput').value.trim();
+    if (pass !== '' && pass !== '123456') { alert("Mật khẩu không đúng! (Mặc định: 123456)"); return; }
+    sessionStorage.setItem('logged_user', user);
+    showAppAfterLogin(user);
+  }
+
+  function handleLogout() {
+    sessionStorage.removeItem('logged_user');
+    document.getElementById('gameScreen').classList.remove('active');
+    document.getElementById('configScreen').classList.remove('active');
+    document.getElementById('loginScreen').classList.add('active');
+  }
+
+  function showAppAfterLogin(userName) {
+    document.getElementById('currentUserLabel').innerText = userName;
+    document.getElementById('loginScreen').classList.remove('active');
+    document.getElementById('configScreen').classList.add('active');
+    renderPlayerInputs();
+  }
+
   function renderPlayerInputs() {
     const count = parseInt(document.getElementById('playerCountSelect').value);
     const grid = document.getElementById('playerInputsGrid');
     grid.innerHTML = '';
-    
     for (let i = 0; i < count; i++) {
       const defaultName = players[i] ? players[i].name : `Người ${i + 1}`;
-      grid.innerHTML += `
-        <input type="text" id="pInput_${i}" class="form-control" value="${defaultName}" placeholder="Tên người ${i+1}">
-      `;
+      grid.innerHTML += `<input type="text" id="pInput_${i}" class="form-control" value="${defaultName}" placeholder="Tên người ${i+1}">`;
     }
   }
 
@@ -184,36 +248,23 @@
     }
 
     coinTron = parseInt(document.getElementById('coinTronInput').value) || 5;
-    coinHoang = parseInt(document.getElementById('coinHoangInput').value) || 10;
+    coinQuan = parseInt(document.getElementById('coinQuanInput').value) || 10;
+    priceTuongVang = parseInt(document.getElementById('coinTuongVangInput').value) || 5;
 
     document.getElementById('btnTron').innerText = `Thắng Trơn (+${coinTron})`;
-    document.getElementById('btnHoang').innerText = `Thắng Hoang (+${coinHoang})`;
+    document.getElementById('btnQuan').innerText = `Thắng Quan (+${coinQuan})`;
 
     document.getElementById('configScreen').classList.remove('active');
     document.getElementById('gameScreen').classList.add('active');
 
     renderPlayers();
+    renderTuongVangInputs();
     loadDataFromSupabase();
   }
 
   function showConfig() {
     document.getElementById('gameScreen').classList.remove('active');
     document.getElementById('configScreen').classList.add('active');
-  }
-
-  async function loadDataFromSupabase() {
-    // Chỉ lấy ván chưa bị xóa mềm (is_deleted = false)
-    const { data, error } = await _supabase
-      .from('games')
-      .select('*')
-      .or('is_deleted.is.null,is_deleted.eq.false')
-      .order('id', { ascending: true });
-
-    if (!error && data) {
-      historyData = data;
-      renderScores();
-      renderHistory();
-    }
   }
 
   function renderPlayers() {
@@ -228,10 +279,29 @@
     });
   }
 
+  function renderTuongVangInputs() {
+    const grid = document.getElementById('tuongVangGrid');
+    grid.innerHTML = '';
+    players.forEach((p, idx) => {
+      grid.innerHTML += `
+        <div class="tuong-item">
+          <span>${p.avatar} ${p.name}:</span>
+          <select id="tuongSelect_${idx}">
+            <option value="0">0 con</option>
+            <option value="1">1 con</option>
+            <option value="2">2 con</option>
+            <option value="3">3 con</option>
+            <option value="4">4 con</option>
+          </select>
+        </div>
+      `;
+    });
+  }
+
   function selectType(type) {
     winType = type;
     document.getElementById('btnTron').className = `type-btn ${type === 'tron' ? 'selected' : ''}`;
-    document.getElementById('btnHoang').className = `type-btn ${type === 'hoang' ? 'selected' : ''}`;
+    document.getElementById('btnQuan').className = `type-btn ${type === 'quan' ? 'selected' : ''}`;
   }
 
   function toggleHistory() {
@@ -242,12 +312,28 @@
 
   async function addGame() {
     if (selectedWinner === null) { alert("Vui lòng chọn người thắng!"); return; }
-    const gain = winType === 'tron' ? coinTron : coinHoang;
+    
+    // Lấy số lượng tướng vàng vô được của từng người
+    let tuongVangArr = [];
+    let totalTuong = 0;
+    players.forEach((_, idx) => {
+      const count = parseInt(document.getElementById(`tuongSelect_${idx}`).value) || 0;
+      tuongVangArr.push(count);
+      totalTuong += count;
+    });
+
+    if (totalTuong > 4) {
+      alert("Tổng số Tướng Vàng không được vượt quá 4 con!");
+      return;
+    }
+
+    const gain = winType === 'tron' ? coinTron : coinQuan;
     
     const { error } = await _supabase.from('games').insert([{ 
       winner: selectedWinner, 
       win_type: winType, 
       gain: gain,
+      tuong_vang: JSON.stringify(tuongVangArr),
       is_deleted: false 
     }]);
 
@@ -255,17 +341,30 @@
       if (typeof confetti === 'function') confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
       selectedWinner = null;
       renderPlayers();
+      renderTuongVangInputs();
       await loadDataFromSupabase();
     }
   }
 
-  // Xóa mềm 1 ván
+  async function loadDataFromSupabase() {
+    const { data, error } = await _supabase
+      .from('games')
+      .select('*')
+      .or('is_deleted.is.null,is_deleted.eq.false')
+      .order('id', { ascending: true });
+
+    if (!error && data) {
+      historyData = data;
+      renderScores();
+      renderHistory();
+    }
+  }
+
   async function deleteGame(id) {
     const { error } = await _supabase.from('games').update({ is_deleted: true }).eq('id', id);
     if (!error) await loadDataFromSupabase();
   }
 
-  // Xóa mềm tất cả ván
   async function resetAll() {
     if (confirm("Reset lại từ đầu cho cả bàn?")) {
       const { error } = await _supabase.from('games').update({ is_deleted: true }).or('is_deleted.is.null,is_deleted.eq.false');
@@ -278,12 +377,29 @@
     const numPlayers = players.length;
 
     historyData.forEach(g => {
+      // 1. Tính điểm ván thắng (Trơn / Quan)
       if (g.winner < numPlayers) {
         const totalGain = g.gain * (numPlayers - 1);
         for (let i = 0; i < numPlayers; i++) {
           if (i === g.winner) scores[i] += totalGain;
           else scores[i] -= g.gain;
         }
+      }
+
+      // 2. Tính điểm đền Tướng Vàng
+      if (g.tuong_vang) {
+        try {
+          const tvArr = JSON.parse(g.tuong_vang);
+          tvArr.forEach((count, pIdx) => {
+            if (pIdx < numPlayers && count > 0) {
+              const tvGainEach = count * priceTuongVang;
+              for (let i = 0; i < numPlayers; i++) {
+                if (i === pIdx) scores[i] += tvGainEach * (numPlayers - 1);
+                else scores[i] -= tvGainEach;
+              }
+            }
+          });
+        } catch (e) {}
       }
     });
 
@@ -292,7 +408,7 @@
     players.forEach((p, i) => {
       const val = scores[i];
       let cls = val > 0 ? 'pos' : (val < 0 ? 'neg' : 'zero');
-      let txt = val > 0 ? `+${val} xu` : `${val} xu`;
+      let txt = val > 0 ? `+${val}k` : `${val}k`;
       const card = document.createElement('div');
       card.className = 'score-card';
       card.innerHTML = `<div style="font-weight:800; font-size:13px;">${p.avatar} ${p.name}</div><div class="val ${cls}">${txt}</div>`;
@@ -307,11 +423,22 @@
     historyData.slice().reverse().forEach((g, idx) => {
       const winnerName = players[g.winner] ? players[g.winner].name : `Người ${g.winner + 1}`;
       const timeStr = new Date(g.created_at).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) + ' - ' + new Date(g.created_at).toLocaleDateString('vi-VN');
+      
+      let tvStr = '';
+      if (g.tuong_vang) {
+        try {
+          const tvArr = JSON.parse(g.tuong_vang);
+          tvArr.forEach((c, pIdx) => {
+            if (c > 0 && players[pIdx]) tvStr += ` | ${players[pIdx].name}: ${c}TV`;
+          });
+        } catch (e) {}
+      }
+
       const li = document.createElement('li');
       li.className = 'history-item';
       li.innerHTML = `
         <div>
-          <div><b>Ván ${historyData.length - idx}:</b> ${winnerName} thắng (${g.win_type === 'tron' ? 'Trơn' : 'Hoang'})</div>
+          <div><b>Ván ${historyData.length - idx}:</b> ${winnerName} thắng (${g.win_type === 'tron' ? 'Trơn' : 'Quan'})${tvStr}</div>
           <div class="history-time">⏱️ ${timeStr}</div>
         </div>
         <button class="btn-del" onclick="deleteGame(${g.id})">Xoá</button>
@@ -320,7 +447,8 @@
     });
   }
 
-  renderPlayerInputs();
+  const savedUser = sessionStorage.getItem('logged_user');
+  if (savedUser) showAppAfterLogin(savedUser);
 </script>
 
 </body>
