@@ -47,7 +47,6 @@
     .type-btn { flex: 1; padding: 10px; border: 2px solid #26a69a; background: #fff; color: #00695c; font-weight: 800; font-size: 13px; border-radius: 10px; cursor: pointer; text-align: center; }
     .type-btn.selected { background: #26a69a; color: #fff; }
 
-    /* Cá Tướng Vàng UI */
     .tuong-vang-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 6px; }
     .tuong-item { background: #fff; padding: 6px 10px; border-radius: 8px; border: 1px solid #c5e1a5; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 800; }
     .tuong-item select { padding: 4px; border-radius: 6px; border: 1px solid #26a69a; font-weight: 800; }
@@ -134,7 +133,7 @@
 
       <div class="form-group">
         <label>👑 Giá cá Tướng Vàng (k / 1 con):</label>
-        <input type="number" id="coinTuongVangInput" class="form-control" value="5" placeholder="Giá 1 con tướng vàng (ví dụ 5 = 5k)">
+        <input type="number" id="coinTuongVangInput" class="form-control" value="5" placeholder="Giá 1 con tướng vàng">
       </div>
 
       <button class="btn-main" onclick="startGame()">BẮT ĐẦU VÀO GAME</button>
@@ -161,7 +160,6 @@
         <button class="type-btn" id="btnQuan" onclick="selectType('quan')">Thắng Quan</button>
       </div>
 
-      <!-- Phần nhập Tướng Vàng vô được -->
       <div class="section-title" style="margin-top: 12px;"><span>🌟 Số Tướng Vàng Vô Được:</span></div>
       <div class="tuong-vang-grid" id="tuongVangGrid"></div>
 
@@ -201,7 +199,7 @@
 
   let coinTron = 5;
   let coinQuan = 10;
-  let priceTuongVang = 5; // Giá 1 con tướng vàng
+  let priceTuongVang = 5;
   let selectedWinner = null;
   let winType = 'tron';
   let historyData = [];
@@ -210,7 +208,7 @@
   function handleLogin() {
     const user = document.getElementById('loginUserSelect').value;
     const pass = document.getElementById('loginPasswordInput').value.trim();
-    if (pass !== '' && pass !== '123456') { alert("Mật khẩu không đúng! (Mặc định: 123456)"); return; }
+    if (pass !== '' && pass !== '123456') { alert("Mật khẩu không đúng!"); return; }
     sessionStorage.setItem('logged_user', user);
     showAppAfterLogin(user);
   }
@@ -313,7 +311,6 @@
   async function addGame() {
     if (selectedWinner === null) { alert("Vui lòng chọn người thắng!"); return; }
     
-    // Lấy số lượng tướng vàng vô được của từng người
     let tuongVangArr = [];
     let totalTuong = 0;
     players.forEach((_, idx) => {
@@ -328,9 +325,12 @@
     }
 
     const gain = winType === 'tron' ? coinTron : coinQuan;
+    const winnerName = players[selectedWinner].name; // <--- Lấy tên người thắng
     
+    // Gửi cả winner (index) lẫn winner_name (Tên) lên Supabase
     const { error } = await _supabase.from('games').insert([{ 
       winner: selectedWinner, 
+      winner_name: winnerName, 
       win_type: winType, 
       gain: gain,
       tuong_vang: JSON.stringify(tuongVangArr),
@@ -377,7 +377,6 @@
     const numPlayers = players.length;
 
     historyData.forEach(g => {
-      // 1. Tính điểm ván thắng (Trơn / Quan)
       if (g.winner < numPlayers) {
         const totalGain = g.gain * (numPlayers - 1);
         for (let i = 0; i < numPlayers; i++) {
@@ -386,7 +385,6 @@
         }
       }
 
-      // 2. Tính điểm đền Tướng Vàng
       if (g.tuong_vang) {
         try {
           const tvArr = JSON.parse(g.tuong_vang);
@@ -421,7 +419,8 @@
     list.innerHTML = historyData.length === 0 ? '<li style="text-align:center; color:#aaa; font-size:12px;">Chưa có ván nào.</li>' : '';
     
     historyData.slice().reverse().forEach((g, idx) => {
-      const winnerName = players[g.winner] ? players[g.winner].name : `Người ${g.winner + 1}`;
+      // Ưu tiên hiển thị winner_name lưu trong db, nếu không có mới dùng index
+      const winnerName = g.winner_name || (players[g.winner] ? players[g.winner].name : `Người ${g.winner + 1}`);
       const timeStr = new Date(g.created_at).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) + ' - ' + new Date(g.created_at).toLocaleDateString('vi-VN');
       
       let tvStr = '';
